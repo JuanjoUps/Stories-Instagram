@@ -6,6 +6,9 @@ on:
   repository_dispatch:
     types: [nuevo-guion]
 
+permissions:
+  contents: write
+
 jobs:
   generar:
     runs-on: ubuntu-latest
@@ -46,4 +49,3 @@ jobs:
           curl -s -X POST "${{ secrets.APPS_SCRIPT_WEBHOOK_URL }}" \
             -H "Content-Type: application/json" \
             -d "{\"video_url\": \"https://github.com/${{ github.repository }}/releases/download/story-${{ github.run_id }}/story_final.mp4\", \"guion\": \"${{ github.event.client_payload.guion_path }}\"}"
-            
