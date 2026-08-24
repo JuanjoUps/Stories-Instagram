@@ -1,0 +1,49 @@
+name: Generar video story
+
+# Se dispara cuando Apps Script sube un guion nuevo y llama a la API de
+# "repository dispatch" con event_type: nuevo-guion
+on:
+  repository_dispatch:
+    types: [nuevo-guion]
+
+jobs:
+  generar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Instalar ffmpeg (con soporte de subtitulos/libass incluido)
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+
+      - name: Instalar Python y dependencias
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Instalar edge-tts
+        run: pip install edge-tts
+
+      - name: Generar video
+        run: |
+          python scripts/generate_video.py \
+            "${{ github.event.client_payload.guion_path }}" \
+            "salida/story_final.mp4"
+
+      - name: Publicar el video como Release (para tener una URL de descarga)
+        id: release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: story-${{ github.run_id }}
+          name: "Story generada ${{ github.run_id }}"
+          files: salida/story_final.mp4
+          body: "Video generado automaticamente a partir de ${{ github.event.client_payload.guion_path }}"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Avisar a Apps Script para que envie el correo
+        run: |
+          curl -s -X POST "${{ secrets.APPS_SCRIPT_WEBHOOK_URL }}" \
+            -H "Content-Type: application/json" \
+            -d "{\"video_url\": \"https://github.com/${{ github.repository }}/releases/download/story-${{ github.run_id }}/story_final.mp4\", \"guion\": \"${{ github.event.client_payload.guion_path }}\"}"
+            
