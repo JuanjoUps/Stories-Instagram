@@ -1,0 +1,19 @@
+{
+  "segmentos": [
+    {
+      "voz": "es-ES-AlvaroNeural",
+      "texto": "video cabecera por si tiene dialogo",
+      "media": "assets/villita-cabecera.mp4"
+    },
+    {
+      "texto": "prueba imagen para a?adir subtitulos a la camiseta del portero",
+      "voz": "es-ES-AlvaroNeural",
+      "media": "assets/camiseta-portero-v4.png"
+    },
+    {
+      "media": "assets/pe?alta-news.mp4",
+      "voz": "es-ES-AlvaroNeural",
+      "texto": "otro video para poner los subtitulos y locuci?n"
+    }
+  ]
+}
