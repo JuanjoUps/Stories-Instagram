@@ -49,7 +49,7 @@ async def generar_audio_srt(texto, voz, out_mp3, out_srt):
         async for chunk in communicate.stream():
             if chunk["type"] == "audio":
                 f.write(chunk["data"])
-            elif chunk["type"] == "WordBoundary":
+            elif chunk["type"] in ("WordBoundary", "SentenceBoundary"):
                 submaker.feed(chunk)
     with open(out_srt, "w", encoding="utf-8") as f:
         f.write(submaker.get_srt())
