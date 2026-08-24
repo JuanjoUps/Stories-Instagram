@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 480px; margin: auto; padding: 16px; }
+    h2 { color: #145A32; }
+    .segmento { border: 1px solid #ccc; border-radius: 8px; padding: 12px; margin-bottom: 12px; }
+    textarea { width: 100%; box-sizing: border-box; }
+    select, input[type=file] { width: 100%; margin-top: 4px; }
+    button { padding: 10px 16px; margin-top: 8px; font-size: 15px; }
+    #estado { font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h2>Nuevo cartel / story</h2>
+  <div id="segmentos"></div>
+  <button type="button" onclick="añadirSegmento()">+ Anadir segmento</button>
+  <br><br>
+  <button type="button" onclick="enviar()">Generar video</button>
+  <p id="estado"></p>
+
+  <script>
+    let contador = 0;
+
+    function añadirSegmento() {
+      contador++;
+      const div = document.createElement('div');
+      div.className = 'segmento';
+      div.innerHTML =
+        '<label>Imagen o video:</label>' +
+        '<input type="file" accept="image/*,video/*">' +
+        '<br><br>' +
+        '<label>Texto (lo que dira Villita / subtitulo):</label>' +
+        '<textarea rows="2"></textarea>' +
+        '<label>Voz:</label>' +
+        '<select>' +
+          '<option value="es-ES-AlvaroNeural">Alvaro (hombre)</option>' +
+          '<option value="es-ES-ElviraNeural">Elvira (mujer)</option>' +
+        '</select>';
+      document.getElementById('segmentos').appendChild(div);
+    }
+
+    function leerArchivo(file) {
+      return new Promise(function (resolve) {
+        const reader = new FileReader();
+        reader.onload = function () { resolve(reader.result); };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    async function enviar() {
+      document.getElementById('estado').innerText = 'Subiendo...';
+      const bloques = document.querySelectorAll('.segmento');
+      const guion = { segmentos: [] };
+      const archivos = {};
+
+      for (const bloque of bloques) {
+        const fileInput = bloque.querySelector('input[type=file]');
+        const texto = bloque.querySelector('textarea').value.trim();
+        const voz = bloque.querySelector('select').value;
+        const file = fileInput.files[0];
+        if (!file || !texto) continue;
+
+        const base64 = await leerArchivo(file);
+        archivos[file.name] = base64;
+        guion.segmentos.push({ media: file.name, texto: texto, voz: voz });
+      }
+
+      if (guion.segmentos.length === 0) {
+        document.getElementById('estado').innerText = 'Anade al menos un segmento con imagen/video y texto.';
+        return;
+      }
+
+      google.script.run
+        .withSuccessHandler(function (msg) { document.getElementById('estado').innerText = msg; })
+        .withFailureHandler(function (err) { document.getElementById('estado').innerText = 'Error: ' + err.message; })
+        .subirGuionYDisparar(guion, archivos);
+    }
+
+    añadirSegmento();
+  </script>
+</body>
+</html>
