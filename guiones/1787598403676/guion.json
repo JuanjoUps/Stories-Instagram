@@ -1,0 +1,19 @@
+{
+  "segmentos": [
+    {
+      "texto": "Hola, es el video de cierre de noticias",
+      "media": "assets/villita-especiales-1.mp4",
+      "voz": "es-ES-AlvaroNeural"
+    },
+    {
+      "media": "assets/pe?alta-news.mp4",
+      "voz": "es-ES-AlvaroNeural",
+      "texto": "quieres hacer ficha con el femenino del villa"
+    },
+    {
+      "voz": "es-ES-AlvaroNeural",
+      "texto": "Se la capitana como Suu o marca tres goles como Erika",
+      "media": "assets/villita-cabecera.mp4"
+    }
+  ]
+}
