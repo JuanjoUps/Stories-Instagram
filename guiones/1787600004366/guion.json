@@ -1,0 +1,24 @@
+{
+  "segmentos": [
+    {
+      "texto": "Hola, es el video de cierre de noticias",
+      "voz": "es-ES-AlvaroNeural",
+      "media": "assets/villita-especiales-1.mp4"
+    },
+    {
+      "texto": "quieres hacer ficha con el femenino del villa",
+      "media": "assets/pe?alta-news.mp4",
+      "voz": "es-ES-AlvaroNeural"
+    },
+    {
+      "voz": "es-ES-AlvaroNeural",
+      "media": "assets/villita-cabecera.mp4",
+      "texto": "Se la capitana como Suu o marca tres goles como Erika"
+    },
+    {
+      "media": "assets/camiseta-portero-v4.png",
+      "voz": "es-ES-AlvaroNeural",
+      "texto": "esta es la camiseta negra de portero, las imagenes se les suma voz"
+    }
+  ]
+}
