@@ -1,0 +1,24 @@
+{
+  "segmentos": [
+    {
+      "voz": "es-ES-AlvaroNeural",
+      "media": "assets/penalta-news.mp4",
+      "texto": "prueba con pe?alta para que coja la e?e"
+    },
+    {
+      "media": "assets/camiseta-visitante-v4.png",
+      "voz": "es-ES-AlvaroNeural",
+      "texto": "imagen camiseta amarilla de visitante, necesito unos subtitulos y locuci?n"
+    },
+    {
+      "media": "assets/villita-cabecera.mp4",
+      "voz": "es-ES-AlvaroNeural",
+      "texto": "video con audio de fondo, a ver si lo mutea y dice esto"
+    },
+    {
+      "media": "assets/escudo-club.png",
+      "voz": "es-ES-AlvaroNeural",
+      "texto": "El escudo del villa por ejemplo"
+    }
+  ]
+}
