@@ -1,0 +1,19 @@
+{
+  "segmentos": [
+    {
+      "voz": "es-ES-AlvaroNeural",
+      "media": "assets/villita-cabecera.mp4",
+      "texto": "cabecera del video resumen, creo que tiene voz, asi pruebo"
+    },
+    {
+      "media": "assets/villita-especiales-1.mp4",
+      "voz": "es-ES-AlvaroNeural",
+      "texto": "video especiales del informativo pe?alta tv"
+    },
+    {
+      "media": "assets/camiseta-local-v4.png",
+      "texto": "prueba de de imagen para poner voz y subtitulos, la camiseta de portero",
+      "voz": "es-ES-AlvaroNeural"
+    }
+  ]
+}
