@@ -39,7 +39,7 @@ WIDTH, HEIGHT = 1080, 1920
 FADE = 0.4                   # segundos de fundido en cada corte (efecto "cortinilla")
 BANNER_HEIGHT = 340           # alto del banner de subtitulos (px)
 BANNER_BOTTOM_MARGIN = 260    # margen desde abajo para no chocar con la UI de Instagram
-FONT_SIZE = 48                 # tamano de fuente de los subtitulos (px, sobre lienzo de 1920 de alto)
+FONT_SIZE = 58                 # tamano de fuente de los subtitulos (px, sobre lienzo de 1920 de alto)
 COLA_SEGUNDOS = 0.6           # margen extra tras terminar el audio de cada segmento
 
 
@@ -83,7 +83,7 @@ def construir_segmento(media_path, audio_path, srt_path, duracion, out_path):
         f"drawbox=x=0:y={banner_y}:w={WIDTH}:h={BANNER_HEIGHT}:color=black@0.45:t=fill,"
         f"subtitles={srt_escapado}:force_style="
         f"'FontName=Arial,FontSize={FONT_SIZE},PrimaryColour=&HFFFFFF&,"
-        f"OutlineColour=&H000000&,BorderStyle=1,Outline=3,"
+        f"OutlineColour=&H000000&,BorderStyle=1,Outline=4,"
         f"Alignment=2,MarginV={BANNER_BOTTOM_MARGIN + 40},"
         f"PlayResX={WIDTH},PlayResY={HEIGHT}',"
         f"fade=t=in:st=0:d={FADE},fade=t=out:st={duracion - FADE}:d={FADE}"
