@@ -39,7 +39,7 @@ WIDTH, HEIGHT = 1080, 1920
 FADE = 0.4                   # segundos de fundido en cada corte (efecto "cortinilla")
 BANNER_HEIGHT = 340           # alto del banner de subtitulos (px)
 BANNER_BOTTOM_MARGIN = 260    # margen desde abajo para no chocar con la UI de Instagram
-FONT_SIZE = 58                 # tamano de fuente de los subtitulos (px, sobre lienzo de 1920 de alto)
+FONT_SIZE = 68                 # tamano de fuente de los subtitulos (px, sobre lienzo de 1920 de alto)
 COLA_SEGUNDOS = 0.6           # margen extra tras terminar el audio de cada segmento
 
 
