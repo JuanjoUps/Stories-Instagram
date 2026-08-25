@@ -1,0 +1,24 @@
+{
+  "segmentos": [
+    {
+      "texto": "prueba con la eñe de peñalta",
+      "voz": "es-ES-AlvaroNeural",
+      "media": "assets/penalta-news.mp4"
+    },
+    {
+      "voz": "es-ES-AlvaroNeural",
+      "media": "assets/villita-cabecera-1.mp4",
+      "texto": "prueba con uno de los videos que hay"
+    },
+    {
+      "texto": "imagen con subtitulos de la segunda equipación",
+      "voz": "es-ES-AlvaroNeural",
+      "media": "assets/camiseta-visitante-v4.png"
+    },
+    {
+      "voz": "es-ES-AlvaroNeural",
+      "media": "assets/villita-transicion-2.mp4",
+      "texto": "Le ponemos otro video para probar pero los videos son cortos si eltexto es corto"
+    }
+  ]
+}
