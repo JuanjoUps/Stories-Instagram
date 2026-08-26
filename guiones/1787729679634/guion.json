@@ -1,0 +1,24 @@
+{
+  "segmentos": [
+    {
+      "media": "assets/1000195337.jpg",
+      "voz": "es-ES-AlvaroNeural",
+      "texto": "Ven a probar a nuestros equipos femeninos, femenino senior y el nuevo infantil cadete.\nHaz deporte, diviértete, compite, y sobre todo haz amigas"
+    },
+    {
+      "texto": "Sueñas con ser la capitana con Suu",
+      "media": "assets/1000195354.mp4",
+      "voz": "es-ES-AlvaroNeural"
+    },
+    {
+      "texto": "Marcar 3 goles como Erika?",
+      "voz": "es-ES-AlvaroNeural",
+      "media": "assets/1000195356.mp4"
+    },
+    {
+      "media": "assets/1000195337.jpg",
+      "voz": "es-ES-AlvaroNeural",
+      "texto": "Forma parte de nuestra familia, femenino senior para las mayores de 16.\nNuevo equipo cantera de fútbol femenino infantil - cadete para las menores."
+    }
+  ]
+}
