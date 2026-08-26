@@ -1,0 +1,39 @@
+{
+  "segmentos": [
+    {
+      "texto": "Ven a probar a nuestros equipos femeninos!!",
+      "voz": "es-ES-AlvaroNeural",
+      "media": "assets/1000195337.jpg"
+    },
+    {
+      "voz": "es-ES-AlvaroNeural",
+      "texto": "Sueñas con ser la capitana del equipo...",
+      "media": "assets/1000195354.mp4"
+    },
+    {
+      "media": "assets/1000195355.jpg",
+      "voz": "es-ES-AlvaroNeural",
+      "texto": "Cómo Susana!!"
+    },
+    {
+      "media": "assets/1000195356.mp4",
+      "texto": "Quizá en marcar goles de tres en tres??",
+      "voz": "es-ES-AlvaroNeural"
+    },
+    {
+      "voz": "es-ES-AlvaroNeural",
+      "texto": "Cómo Erika!!",
+      "media": "assets/1000195357.jpg"
+    },
+    {
+      "texto": "Si tienes entre 12 y 15 años, creamos el nuevo equipo femenino de fútbol 7 infantil cadete \nSi tienes 16 o más ven al equipo senior femenino.",
+      "media": "assets/1000195337.jpg",
+      "voz": "es-ES-AlvaroNeural"
+    },
+    {
+      "media": "assets/1000195337.jpg",
+      "texto": "Ven a divertirte, a hacer deporte, a competir y a hacer amistades.\nÚnete al Villa!!",
+      "voz": "es-ES-AlvaroNeural"
+    }
+  ]
+}
