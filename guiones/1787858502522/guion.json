@@ -1,0 +1,15 @@
+{
+  "segmentos": [
+    {
+      "texto": "\"Me complace presentar a los figuras!!Esta temporada entrenarán al veterano del Villa\",\nJavi e Hidalgo,",
+      "media": "assets/1000195711.mp4",
+      "voz": "es-ES-AlvaroNeural"
+    },
+    {
+      "texto": "\"CHICOS DE LA CASA, HAN ENTRENADO A VARIAS CATEGORÍAS AQUÍ, SIGUEN JUGANDO EN EL SENIOR Y compaginan con LOS BANQUILLOS, UNA TEMPORADA MÁS APOSTAMOS POR ELLOS PARA EL VETERANO. Entrenamientos jueves de 8 a 10 de la noche\",",
+      "voz": "es-ES-AlvaroNeural",
+      "media": "assets/1000195710.jpg"
+    }
+  ],
+  "subtitulos": false
+}
