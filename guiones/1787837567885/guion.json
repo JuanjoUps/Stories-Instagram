@@ -1,0 +1,15 @@
+{
+  "segmentos": [
+    {
+      "media": "assets/1000195632.mp4",
+      "texto": "Me complace presentar a los figuras!!\nEsta temporada entrenarán al veterano del Villa",
+      "voz": "es-ES-AlvaroNeural"
+    },
+    {
+      "texto": "CHICOS DE LA CASA, HAN ENTRENADO A VARIAS CATEGORÍAS AQUÍ, SIGUEN JUGANDO EN EL SENIOR Y EN LOS BANQUILLOS, UNA TEMPORADA MÁS APOSTAMOS POR ELLOS PARA EL VETERANO. Entrenamientos jueves de 8 a 10 de la noche",
+      "media": "assets/1000195654.jpg",
+      "voz": "es-ES-AlvaroNeural"
+    }
+  ],
+  "subtitulos": false
+}
