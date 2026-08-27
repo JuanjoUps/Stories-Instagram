@@ -1,0 +1,15 @@
+{
+  "subtitulos": false,
+  "segmentos": [
+    {
+      "texto": "Os presento al entrenador del juvenil, José Carlos Montero Joseca.",
+      "media": "assets/1000195632.mp4",
+      "voz": "es-ES-AlvaroNeural"
+    },
+    {
+      "texto": "SE FORJÓ COMO SEGUNDO DEL SENIOR, también es AYUDANTE EN EL FEMENINO. CONTINÚA DESPUÉS DE LOGRAR EL ASCENSO A PRIMERA JUVENIL LA TEMPORADA PASADA. Entrenamientos los miércoles y jueves de 6 y media a 8 de la tarde",
+      "media": "assets/1000195630.jpg",
+      "voz": "es-ES-AlvaroNeural"
+    }
+  ]
+}
