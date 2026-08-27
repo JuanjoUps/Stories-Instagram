@@ -1,0 +1,15 @@
+{
+  "segmentos": [
+    {
+      "voz": "es-ES-AlvaroNeural",
+      "texto": "\"Para dirigir al femenino, vuelven los figuras!! Javi e Hidalgo.\"",
+      "media": "assets/1000195632.mp4"
+    },
+    {
+      "media": "assets/1000195707.jpg",
+      "texto": "\"CHICOS DE LA CASA, HAN ENTRENADO A VARIAS CATEGORÍAS AQUÍ, SIGUEN JUGANDO EN EL SENIOR Y mientras compaginan con LOS BANQUILLOS, van a por la segunda temporada con las chicas. Entrenamientos lunes y miércoles de 8 a 9 y media de la tarde\"",
+      "voz": "es-ES-AlvaroNeural"
+    }
+  ],
+  "subtitulos": false
+}
