@@ -41,10 +41,12 @@ BANNER_HEIGHT = 340           # alto del banner de subtitulos (px)
 BANNER_BOTTOM_MARGIN = 260    # margen desde abajo para no chocar con la UI de Instagram
 FONT_SIZE = 58                 # tamano de fuente de los subtitulos (px, sobre lienzo de 1920 de alto)
 COLA_SEGUNDOS = 0.6           # margen extra tras terminar el audio de cada segmento
+VOZ_PITCH = "+25Hz"            # tono mas agudo, efecto "personaje de dibujos animados"
+VOZ_RATE = "+8%"               # ligeramente mas rapido, mas energico
 
 
-async def generar_audio_srt(texto, voz, out_mp3, out_srt):
-    communicate = edge_tts.Communicate(texto, voz)
+async def generar_audio_srt(texto, voz, out_mp3, out_srt, pitch=VOZ_PITCH, rate=VOZ_RATE):
+    communicate = edge_tts.Communicate(texto, voz, rate=rate, pitch=pitch)
     submaker = edge_tts.SubMaker()
     with open(out_mp3, "wb") as f:
         async for chunk in communicate.stream():
@@ -147,7 +149,8 @@ def main():
             mp3 = tmp / f"seg{i}.mp3"
             srt = tmp / f"seg{i}.srt"
             asyncio.run(generar_audio_srt(
-                seg["texto"], seg.get("voz", "es-ES-AlvaroNeural"), mp3, srt
+                seg["texto"], seg.get("voz", "es-ES-AlvaroNeural"), mp3, srt,
+                pitch=seg.get("pitch", VOZ_PITCH), rate=seg.get("rate", VOZ_RATE)
             ))
             dur = duracion_audio(mp3) + COLA_SEGUNDOS
             clip = tmp / f"clip{i}.mp4"
