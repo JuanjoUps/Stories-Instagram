@@ -1,0 +1,15 @@
+{
+  "subtitulos": false,
+  "segmentos": [
+    {
+      "voz": "es-ES-AlvaroNeural",
+      "texto": "Presentamos al ENTRENADOR de nuestro EQUIPO JUVENIL\"\n\"JOSÉ CARLOS MONTERO joseca",
+      "media": "assets/1000193024.mp4"
+    },
+    {
+      "voz": "es-ES-AlvaroNeural",
+      "media": "assets/1000195630.jpg",
+      "texto": "SE FORJÓ COMO SEGUNDO DEL SENIOR, AYUDANTE EN EL FEMENINO. CONTINUÓ DESPUÉS DE LOGRAR EL ASCENSO A PRIMERA JUVENIL LA TEMPORADA PASADA\nEntrenamientos miércoles y viernes de 18:30 a 20 horas"
+    }
+  ]
+}
