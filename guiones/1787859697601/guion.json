@@ -1,0 +1,15 @@
+{
+  "segmentos": [
+    {
+      "voz": "es-ES-AlvaroNeural",
+      "media": "assets/1000195711.mp4",
+      "texto": "\"Vamos a presentar al entrenador del primer equipo masculino, nuestro senior, bienvenido Ramón Alonso!!\","
+    },
+    {
+      "texto": "\"18 AÑOS DE EXPERIENCIA EN BANQUILLOS. TÉCNICO DEPORTIVO GRADO SUPERIOR NIVEL 3, SCOUTING Y ANALISTA. HA DIRIGIDO EN AD COLMENAR VIEJO, ATLÉTICO TRABENCO, EF SIETE PICOS, FORTUNA DE LEGANÉS Y RECREATIVO SOTO. Entrenamientos martes y viernes de 8 y cuarto a 10 de la noche\",",
+      "voz": "es-ES-AlvaroNeural",
+      "media": "assets/1000195716.jpg"
+    }
+  ],
+  "subtitulos": false
+}
