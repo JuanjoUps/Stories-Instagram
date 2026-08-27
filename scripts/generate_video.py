@@ -39,7 +39,7 @@ WIDTH, HEIGHT = 1080, 1920
 FADE = 0.4                   # segundos de fundido en cada corte (efecto "cortinilla")
 BANNER_HEIGHT = 340           # alto del banner de subtitulos (px)
 BANNER_BOTTOM_MARGIN = 260    # margen desde abajo para no chocar con la UI de Instagram
-FONT_SIZE = 68                 # tamano de fuente de los subtitulos (px, sobre lienzo de 1920 de alto)
+FONT_SIZE = 58                 # tamano de fuente de los subtitulos (px, sobre lienzo de 1920 de alto)
 COLA_SEGUNDOS = 0.6           # margen extra tras terminar el audio de cada segmento
 
 
@@ -69,23 +69,29 @@ def es_video(path):
     return Path(path).suffix.lower() in (".mp4", ".mov", ".m4v")
 
 
-def construir_segmento(media_path, audio_path, srt_path, duracion, out_path):
+def construir_segmento(media_path, audio_path, srt_path, duracion, out_path, con_subtitulos=True):
     """Crea un clip de duracion fija: imagen o video, redimensionado a
-    1080x1920, con subtitulo quemado sobre un banner semitransparente,
-    audio TTS, y fundido de entrada/salida."""
+    1080x1920, con audio TTS, fundido de entrada/salida, y opcionalmente
+    subtitulo quemado sobre un banner semitransparente."""
 
-    banner_y = HEIGHT - BANNER_BOTTOM_MARGIN - BANNER_HEIGHT
-    srt_escapado = str(srt_path).replace("\\", "/").replace(":", "\\:")
+    if con_subtitulos:
+        banner_y = HEIGHT - BANNER_BOTTOM_MARGIN - BANNER_HEIGHT
+        srt_escapado = str(srt_path).replace("\\", "/").replace(":", "\\:")
+        subtitulos_parte = (
+            f"drawbox=x=0:y={banner_y}:w={WIDTH}:h={BANNER_HEIGHT}:color=black@0.45:t=fill,"
+            f"subtitles={srt_escapado}:force_style="
+            f"'FontName=Arial,FontSize={FONT_SIZE},PrimaryColour=&HFFFFFF&,"
+            f"OutlineColour=&H000000&,BorderStyle=1,Outline=4,"
+            f"Alignment=2,MarginV={BANNER_BOTTOM_MARGIN + 40},"
+            f"PlayResX={WIDTH},PlayResY={HEIGHT}',"
+        )
+    else:
+        subtitulos_parte = ""
 
     vf = (
         f"scale={WIDTH}:{HEIGHT}:force_original_aspect_ratio=increase,"
         f"crop={WIDTH}:{HEIGHT},"
-        f"drawbox=x=0:y={banner_y}:w={WIDTH}:h={BANNER_HEIGHT}:color=black@0.45:t=fill,"
-        f"subtitles={srt_escapado}:force_style="
-        f"'FontName=Arial,FontSize={FONT_SIZE},PrimaryColour=&HFFFFFF&,"
-        f"OutlineColour=&H000000&,BorderStyle=1,Outline=4,"
-        f"Alignment=2,MarginV={BANNER_BOTTOM_MARGIN + 40},"
-        f"PlayResX={WIDTH},PlayResY={HEIGHT}',"
+        f"{subtitulos_parte}"
         f"fade=t=in:st=0:d={FADE},fade=t=out:st={duracion - FADE}:d={FADE}"
     )
 
@@ -132,6 +138,7 @@ def main():
     guion_path, salida_path = sys.argv[1], sys.argv[2]
     guion = json.loads(Path(guion_path).read_text(encoding="utf-8"))
     base_dir = Path(guion_path).parent  # las rutas "media" son relativas al guion
+    con_subtitulos = guion.get("subtitulos", True)
 
     with tempfile.TemporaryDirectory() as tmp:
         tmp = Path(tmp)
@@ -145,7 +152,7 @@ def main():
             dur = duracion_audio(mp3) + COLA_SEGUNDOS
             clip = tmp / f"clip{i}.mp4"
             media_path = base_dir / seg["media"]
-            construir_segmento(media_path, mp3, srt, dur, clip)
+            construir_segmento(media_path, mp3, srt, dur, clip, con_subtitulos)
             clips.append(clip)
 
         Path(salida_path).parent.mkdir(parents=True, exist_ok=True)
