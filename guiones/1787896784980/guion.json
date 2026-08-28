@@ -1,0 +1,10 @@
+{
+  "segmentos": [
+    {
+      "texto": "Buenos días!!\nHoy en el txiringuito de Peñalta...\nPresentación de entrenadores de nuestros equipos\nTic, tac, tic, tac...\nVienen con ganas de darlo todo, pero siempre con honor",
+      "media": "assets/1000195742.mp4",
+      "voz": "es-ES-AlvaroNeural"
+    }
+  ],
+  "subtitulos": false
+}
