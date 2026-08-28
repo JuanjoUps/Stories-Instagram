@@ -1,0 +1,10 @@
+{
+  "subtitulos": false,
+  "segmentos": [
+    {
+      "voz": "es-ES-AlvaroNeural",
+      "texto": "Buenos días!\nHoy en el Chiringuito de Peñalta, presentación de entrenadores, estén atentos...\ntic, tac, tic, tac...\nSooomos el Villa de Buitraaago!!",
+      "media": "assets/1000195742.mp4"
+    }
+  ]
+}
