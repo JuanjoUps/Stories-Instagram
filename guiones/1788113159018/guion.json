@@ -1,0 +1,15 @@
+{
+  "subtitulos": false,
+  "segmentos": [
+    {
+      "texto": "Presentamos a Kike, nuestro entrenador para el cadete un año más.",
+      "media": "assets/1000195742.mp4",
+      "voz": "es-ES-AlvaroNeural"
+    },
+    {
+      "voz": "es-ES-AlvaroNeural",
+      "texto": "10 años como entrenador d fútbol sala en diversas categorías del fútbol nacional y 4 años de entrenador de Fútbol 11 en el Villa De Buitrago del Lozoya en categorías infantil y cadete . Técnico deportivo grado medio y entrenador nivel 2 UEFA A",
+      "media": "assets/1000196156.jpg"
+    }
+  ]
+}
