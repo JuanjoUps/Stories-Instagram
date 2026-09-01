@@ -1,0 +1,15 @@
+{
+  "segmentos": [
+    {
+      "voz": "es-ES-AlvaroNeural",
+      "media": "assets/1000195817.mp4",
+      "texto": "Última hora, os presento al nuevo entrenador del Benjamín"
+    },
+    {
+      "voz": "es-ES-AlvaroNeural",
+      "media": "assets/1000196491.jpg",
+      "texto": "Marcos Merino!!\nDESDE PEQUEÑO EN EL VILLA.\nESTE AÑO DA EL SALTO AL SENIOR, DESPUÉS DE LLEVAR EL BRAZALETE DE CAPITÁN EN EL ASCENSO DEL JUVENIL LA TEMPORADA PASADA Y TAMBIÉN A LOS BANQUILLOS DE FÚTBOL 7.\nEntrenamientos lunes y miércoles de 4 y media a 6 de la tarde"
+    }
+  ],
+  "subtitulos": true
+}
