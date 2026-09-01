@@ -1,0 +1,15 @@
+{
+  "segmentos": [
+    {
+      "texto": "Presentamos al nuevo entrenador del alevín.",
+      "voz": "es-ES-AlvaroNeural",
+      "media": "assets/1000195817.mp4"
+    },
+    {
+      "texto": "Adrián Sotillo, Soti\nJUGANDO DESDE LOS 5 AÑOS, HA PASADO POR TODAS LAS CATEGORÍAS DEL VILLA, DESPUÉS DE SU PASO POR LOS BANQUILLOS DE FÚTBOL SALA PASA A NUESTRO ALEVÍN DE FÚTBOL 7, ES JUGADOR DEL SENIOR",
+      "media": "assets/1000196439.jpg",
+      "voz": "es-ES-AlvaroNeural"
+    }
+  ],
+  "subtitulos": false
+}
