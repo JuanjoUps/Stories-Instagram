@@ -1,0 +1,15 @@
+{
+  "subtitulos": false,
+  "segmentos": [
+    {
+      "texto": "Algún día le íbamos a presentar como entrenador, ese día es hoy. Nuevo entrenador para el Infantil",
+      "media": "assets/1000195817.mp4",
+      "voz": "es-ES-AlvaroNeural"
+    },
+    {
+      "texto": "\"ENTRENADOR EQUIPO INFANTIL\"\n \"ADRIÁN MORCILLO\"\n\"EN EL CLUB DESDE 2018.\nES SU PRIMERA EXPERIENCIA COMO PRIMER ENTRENADOR DESPUÉS DE TITULARSE.\nTODOS SABÍAMOS QUE SERIA ENTRENADOR.\nEntrenamientos martes y jueves de 4 y media a 6 y media",
+      "media": "assets/1000196583.jpg",
+      "voz": "es-ES-AlvaroNeural"
+    }
+  ]
+}
