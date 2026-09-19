@@ -1,0 +1,10 @@
+{
+  "subtitulos": true,
+  "segmentos": [
+    {
+      "texto": "Rayo Vallecano\nOrgullo del barrio de Vallecas, es una de las canteras más tradicionales y con más carácter del fútbol madrileño, reconocida por su estilo dinámico y combatividad.",
+      "voz": "es-ES-AlvaroNeural",
+      "media": "assets/1000200187.png"
+    }
+  ]
+}
