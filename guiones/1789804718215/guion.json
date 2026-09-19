@@ -1,0 +1,15 @@
+{
+  "segmentos": [
+    {
+      "media": "assets/1000195742.mp4",
+      "texto": "Hoy juega nuestro equipo alevín el tornero g s d",
+      "voz": "es-ES-AlvaroNeural"
+    },
+    {
+      "texto": "Competirá contra algunas de las mejores canteras y escuelas de fútbol de la comunidad de Madrid y castilla y león.",
+      "media": "assets/1000199831.jpg",
+      "voz": "es-ES-AlvaroNeural"
+    }
+  ],
+  "subtitulos": true
+}
