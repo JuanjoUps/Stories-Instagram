@@ -1,0 +1,75 @@
+{
+  "subtitulos": true,
+  "segmentos": [
+    {
+      "texto": "Real Madrid Club de Fútbol: La Fábrica, excelencia y talento mundial.",
+      "voz": "es-ES-AlvaroNeural",
+      "media": "assets/1000199838.png"
+    },
+    {
+      "texto": "Rayo Vallecano de Madrid: Orgullo de Vallecas, garra y tradición.",
+      "voz": "es-ES-AlvaroNeural",
+      "media": "assets/1000200187.png"
+    },
+    {
+      "media": "assets/1000200188.jpg",
+      "texto": "Club Deportivo Leganés: Trabajo metódico y cantera de futuro.",
+      "voz": "es-ES-AlvaroNeural"
+    },
+    {
+      "voz": "es-ES-AlvaroNeural",
+      "media": "assets/1000200190.jpg",
+      "texto": "Club Deportivo Galapagar: Pasión y corazón de la sierra."
+    },
+    {
+      "media": "assets/1000200191.png",
+      "texto": "Atlético Chopera Alcobendas 04: Identidad, unión y trabajo en equipo.",
+      "voz": "es-ES-AlvaroNeural"
+    },
+    {
+      "texto": "Club Deportivo Unión Adarve: La mítica fuerza del Barrio del Pilar.",
+      "voz": "es-ES-AlvaroNeural",
+      "media": "assets/1000200192.jpg"
+    },
+    {
+      "voz": "es-ES-AlvaroNeural",
+      "texto": "Unión Deportiva Sanse: Exigencia y formación de altura.",
+      "media": "assets/1000200193.jpg"
+    },
+    {
+      "texto": "Real Sociedad Deportiva Alcalá: Historia y solera del fútbol complutense.",
+      "voz": "es-ES-AlvaroNeural",
+      "media": "assets/1000200194.png"
+    },
+    {
+      "texto": "Gimnástica Segoviana Club de Fútbol: Calidad, disciplina e historia de Segovia.",
+      "voz": "es-ES-AlvaroNeural",
+      "media": "assets/1000200195.jpg"
+    },
+    {
+      "media": "assets/1000200196.jpg",
+      "voz": "es-ES-AlvaroNeural",
+      "texto": "Club deportivo elemental villa de Buitrago: La ilusión y el orgullo de la Sierra Norte. los cachorros de Peñalta, a por ellos campeones."
+    },
+    {
+      "voz": "es-ES-AlvaroNeural",
+      "media": "assets/1000200197.jpg",
+      "texto": "Club Deportivo Rayo Majadahonda: Metodología y exquisito trato al balón."
+    },
+    {
+      "media": "assets/1000200198.jpg",
+      "voz": "es-ES-AlvaroNeural",
+      "texto": "Academia Toni Kroos: Precisión alemana y visión de leyenda. Entrenada por el ex jugador Tony Kroos"
+    },
+    {
+      "texto": "Vallecas Club de Fútbol AFA: Raíces, compromiso y pura pasión de barrio. Nada que con el jugador del veterano.",
+      "media": "assets/1000200200.jpg",
+      "voz": "es-ES-AlvaroNeural"
+    },
+    {
+      "voz": "es-ES-AlvaroNeural",
+      "texto": "Gredos San Diego A y B: Anfitriones del evento, Excelencia, formación e instalaciones de vanguardia.",
+      "media": "assets/1000199840.jpg"
+    }
+  ]
+}
