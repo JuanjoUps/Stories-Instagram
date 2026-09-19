@@ -1,0 +1,15 @@
+{
+  "subtitulos": true,
+  "segmentos": [
+    {
+      "texto": "Buenos días amigos.\nHoy nuestro alevín se cita con algunas de las mejores canteras de Madrid y Segovia",
+      "media": "assets/1000195742.mp4",
+      "voz": "es-ES-AlvaroNeural"
+    },
+    {
+      "voz": "es-ES-AlvaroNeural",
+      "texto": "Competiremos en la primera edición del torneo alevín Gredos san Diego.",
+      "media": "assets/1000199831.jpg"
+    }
+  ]
+}
