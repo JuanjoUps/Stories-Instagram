@@ -1,0 +1,10 @@
+{
+  "segmentos": [
+    {
+      "voz": "es-ES-AlvaroNeural",
+      "texto": "Real Madrid CF\nUno de los máximos referentes del fútbol mundial cuya cantera, la \"Fábrica\", destaca por su excelencia técnica, rigor táctico y la formación continua de talentos internacionales.",
+      "media": "assets/1000199838.png"
+    }
+  ],
+  "subtitulos": true
+}
