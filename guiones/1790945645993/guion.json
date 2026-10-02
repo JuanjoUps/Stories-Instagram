@@ -1,0 +1,20 @@
+{
+  "segmentos": [
+    {
+      "texto": "Y si...\n\n\n.",
+      "media": "assets/1000202446.jpg",
+      "voz": "es-ES-AlvaroNeural"
+    },
+    {
+      "media": "assets/1000202442.jpg",
+      "voz": "es-ES-AlvaroNeural",
+      "texto": "Y si\nVuelve Roberto a Peñalta?"
+    },
+    {
+      "media": "assets/1000202432.mp4",
+      "voz": "es-ES-AlvaroNeural",
+      "texto": "Y si \nhace esto?"
+    }
+  ],
+  "subtitulos": true
+}
