@@ -71,10 +71,13 @@ def es_video(path):
     return Path(path).suffix.lower() in (".mp4", ".mov", ".m4v")
 
 
-def construir_segmento(media_path, audio_path, srt_path, duracion, out_path, con_subtitulos=True):
+def construir_segmento(media_path, audio_path, srt_path, duracion, out_path, con_subtitulos=True, modo_sueno=False):
     """Crea un clip de duracion fija: imagen o video, redimensionado a
     1080x1920, con audio TTS, fundido de entrada/salida, y opcionalmente
-    subtitulo quemado sobre un banner semitransparente."""
+    subtitulo quemado sobre un banner semitransparente.
+
+    Si modo_sueno=True, aplica una vineta suave en los bordes y un tono
+    calido/sepia, como las secuencias de ensueno clasicas de TV/cine."""
 
     if con_subtitulos:
         banner_y = HEIGHT - BANNER_BOTTOM_MARGIN - BANNER_HEIGHT
@@ -90,9 +93,20 @@ def construir_segmento(media_path, audio_path, srt_path, duracion, out_path, con
     else:
         subtitulos_parte = ""
 
+    if modo_sueno:
+        # Vineta suave en los bordes (oscurecidos y difuminados) + tono calido/sepia
+        sueno_parte = (
+            "eq=saturation=0.75:gamma=1.08:contrast=0.95,"
+            "colorbalance=rs=0.08:gs=0.02:bs=-0.08:rm=0.06:gm=0.01:bm=-0.06,"
+            "vignette=angle=PI/4:mode=forward,"
+        )
+    else:
+        sueno_parte = ""
+
     vf = (
         f"scale={WIDTH}:{HEIGHT}:force_original_aspect_ratio=increase,"
         f"crop={WIDTH}:{HEIGHT},"
+        f"{sueno_parte}"
         f"{subtitulos_parte}"
         f"fade=t=in:st=0:d={FADE},fade=t=out:st={duracion - FADE}:d={FADE}"
     )
@@ -155,7 +169,7 @@ def main():
             dur = duracion_audio(mp3) + COLA_SEGUNDOS
             clip = tmp / f"clip{i}.mp4"
             media_path = base_dir / seg["media"]
-            construir_segmento(media_path, mp3, srt, dur, clip, con_subtitulos)
+            construir_segmento(media_path, mp3, srt, dur, clip, con_subtitulos, seg.get("sueno", False))
             clips.append(clip)
 
         Path(salida_path).parent.mkdir(parents=True, exist_ok=True)
