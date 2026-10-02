@@ -1,0 +1,15 @@
+{
+  "subtitulos": true,
+  "segmentos": [
+    {
+      "texto": "Y si\nSe lo dice al Moro?",
+      "voz": "es-ES-AlvaroNeural",
+      "media": "assets/1000202450.png"
+    },
+    {
+      "media": "assets/1000202456.png",
+      "voz": "es-ES-AlvaroNeural",
+      "texto": "Y si\nMorientes también quiere jugar en Peñalta?"
+    }
+  ]
+}
