@@ -1,0 +1,20 @@
+{
+  "subtitulos": true,
+  "segmentos": [
+    {
+      "texto": "Y si...\nSe le dice al Moro que venga?",
+      "voz": "es-ES-AlvaroNeural",
+      "media": "assets/1000202450.png"
+    },
+    {
+      "voz": "es-ES-AlvaroNeural",
+      "media": "assets/1000202456.png",
+      "texto": "Y si...\nMorientes también quiere jugar en Peñalta?"
+    },
+    {
+      "media": "assets/1000193087.mp4",
+      "voz": "es-ES-AlvaroNeural",
+      "texto": "Y si...\nEl Villita les da cañita?"
+    }
+  ]
+}
