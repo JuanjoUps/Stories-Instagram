@@ -40,6 +40,7 @@ FADE = 0.4                   # segundos de fundido en cada corte (efecto "cortin
 BANNER_HEIGHT = 340           # alto del banner de subtitulos (px)
 BANNER_BOTTOM_MARGIN = 260    # margen desde abajo para no chocar con la UI de Instagram
 FONT_SIZE = 58                 # tamano de fuente de los subtitulos (px, sobre lienzo de 1920 de alto)
+FPS = 24                       # fotogramas por segundo del zoom Ken Burns en modo sueno
 COLA_SEGUNDOS = 0.6           # margen extra tras terminar el audio de cada segmento
 VOZ_PITCH = "+25Hz"            # tono mas agudo, efecto "personaje de dibujos animados"
 VOZ_RATE = "+8%"               # ligeramente mas rapido, mas energico
@@ -76,8 +77,9 @@ def construir_segmento(media_path, audio_path, srt_path, duracion, out_path, con
     1080x1920, con audio TTS, fundido de entrada/salida, y opcionalmente
     subtitulo quemado sobre un banner semitransparente.
 
-    Si modo_sueno=True, aplica una vineta suave en los bordes y un tono
-    calido/sepia, como las secuencias de ensueno clasicas de TV/cine."""
+    Si modo_sueno=True, aplica zoom lento tipo Ken Burns (solo en imagenes
+    fijas, para darles movimiento), resplandor difuminado (glow) y vineta
+    en los bordes, como una secuencia de ensueno/flashback cinematografica."""
 
     if con_subtitulos:
         banner_y = HEIGHT - BANNER_BOTTOM_MARGIN - BANNER_HEIGHT
@@ -93,20 +95,62 @@ def construir_segmento(media_path, audio_path, srt_path, duracion, out_path, con
     else:
         subtitulos_parte = ""
 
-    if modo_sueno:
-        # Vineta suave en los bordes (oscurecidos y difuminados) + tono calido/sepia
-        sueno_parte = (
-            "eq=saturation=0.75:gamma=1.08:contrast=0.95,"
-            "colorbalance=rs=0.08:gs=0.02:bs=-0.08:rm=0.06:gm=0.01:bm=-0.06,"
-            "vignette=angle=PI/4:mode=forward,"
-        )
-    else:
-        sueno_parte = ""
+    es_img = not es_video(media_path)
 
+    if modo_sueno:
+        # Zoom Ken Burns (solo si es imagen fija; un video ya tiene movimiento propio)
+        if es_img:
+            frames = max(1, round(duracion * FPS))
+            zoom_parte = (
+                f"scale={WIDTH * 2}:{HEIGHT * 2},"
+                f"zoompan=z='min(zoom+0.0015,1.3)':d={frames}:"
+                f"x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':s={WIDTH}x{HEIGHT}:fps={FPS},"
+            )
+        else:
+            zoom_parte = ""
+
+        # Tono calido suave + resplandor difuminado (glow) + vineta en los bordes
+        filter_complex = (
+            f"[0:v]scale={WIDTH}:{HEIGHT}:force_original_aspect_ratio=increase,"
+            f"crop={WIDTH}:{HEIGHT},setsar=1,{zoom_parte}"
+            f"eq=saturation=0.75:gamma=1.08:contrast=0.95,"
+            f"colorbalance=rs=0.08:gs=0.02:bs=-0.08:rm=0.06:gm=0.01:bm=-0.06[tono];"
+            f"[tono]split[orig][toblur];"
+            f"[toblur]gblur=sigma=16[blurred];"
+            f"[orig][blurred]blend=all_mode=screen:all_opacity=0.4[glow];"
+            f"[glow]vignette=angle=PI/4:mode=forward,"
+            f"{subtitulos_parte}"
+            f"fade=t=in:st=0:d={FADE},fade=t=out:st={duracion - FADE}:d={FADE}[outv]"
+        )
+
+        if es_img:
+            cmd = [
+                "ffmpeg", "-y", "-loop", "1", "-i", str(media_path),
+                "-i", str(audio_path),
+                "-t", str(duracion),
+                "-filter_complex", filter_complex,
+                "-map", "[outv]", "-map", "1:a",
+                "-c:v", "libx264", "-c:a", "aac", "-pix_fmt", "yuv420p",
+                "-shortest",
+                str(out_path)
+            ]
+        else:
+            cmd = [
+                "ffmpeg", "-y", "-stream_loop", "-1", "-i", str(media_path),
+                "-i", str(audio_path),
+                "-t", str(duracion),
+                "-filter_complex", filter_complex,
+                "-map", "[outv]", "-map", "1:a",
+                "-c:v", "libx264", "-c:a", "aac", "-pix_fmt", "yuv420p",
+                str(out_path)
+            ]
+        subprocess.run(cmd, check=True)
+        return
+
+    # Camino normal, sin modo sueno (igual que antes)
     vf = (
         f"scale={WIDTH}:{HEIGHT}:force_original_aspect_ratio=increase,"
         f"crop={WIDTH}:{HEIGHT},"
-        f"{sueno_parte}"
         f"{subtitulos_parte}"
         f"fade=t=in:st=0:d={FADE},fade=t=out:st={duracion - FADE}:d={FADE}"
     )
