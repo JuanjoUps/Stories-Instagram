@@ -1,0 +1,11 @@
+{
+  "subtitulos": false,
+  "segmentos": [
+    {
+      "sueno": true,
+      "texto": "Estaba soñando que Roberto Carlos venía a jugar a Peñalta... Y no venía sólo...",
+      "voz": "es-ES-AlvaroNeural",
+      "media": "assets/1000202449.png"
+    }
+  ]
+}
