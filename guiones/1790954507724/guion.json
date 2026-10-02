@@ -1,0 +1,15 @@
+{
+  "subtitulos": true,
+  "segmentos": [
+    {
+      "texto": "Y si\nMario Suárez suelta el micro y recupera la pelota?",
+      "media": "assets/1000202513.jpg",
+      "voz": "es-ES-AlvaroNeural"
+    },
+    {
+      "texto": "Y si \nEl Villita les da cañita?",
+      "voz": "es-ES-AlvaroNeural",
+      "media": "assets/1000193087.mp4"
+    }
+  ]
+}
