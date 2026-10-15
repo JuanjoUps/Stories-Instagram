@@ -1,0 +1,15 @@
+{
+  "subtitulos": false,
+  "segmentos": [
+    {
+      "media": "assets/1000206785.mp4",
+      "texto": "Hola Buitrago!\nHoy jugamos todos, participa en la marcha solidaria",
+      "voz": "es-ES-AlvaroNeural"
+    },
+    {
+      "texto": "Inscripciones a partir de las 11 en la plaza Picasso",
+      "media": "assets/1000206785.mp4",
+      "voz": "es-ES-AlvaroNeural"
+    }
+  ]
+}
