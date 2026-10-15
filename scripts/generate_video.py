@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """
 Genera un vídeo de story de Instagram (1080x1920) a partir de un guion JSON,
-con audio TTS (Edge TTS, gratuito), subtítulos quemados sobre un banner
-semitransparente, y fundido de entrada/salida entre segmentos.
+con audio TTS (Google Gemini TTS si hay API key, con respaldo automatico en
+Edge TTS gratuito), subtítulos quemados sobre un banner semitransparente, y
+fundido de entrada/salida entre segmentos.
 
 Uso:
     python generate_video.py guion.json salida/story_final.mp4
@@ -23,14 +24,27 @@ Formato de guion.json:
   ]
 }
 
+Voz:
+  Si existe la variable de entorno GOOGLE_TTS_API_KEY, cada segmento se
+  intenta generar con Google Gemini TTS (voz "Achird", con acento de Espana
+  y estilo de dibujos animados) para que suene igual que el resto de videos
+  del club. Si la peticion falla (sin internet, cuota agotada, error de la
+  API, etc.) o no hay API key configurada, se usa automaticamente el Edge
+  TTS de siempre (el comportamiento que ya funcionaba antes).
+
 Requisitos: pip install edge-tts   |   ffmpeg instalado en el sistema
 """
 
 import asyncio
+import base64
 import json
+import os
 import subprocess
 import sys
 import tempfile
+import time
+import urllib.error
+import urllib.request
 from pathlib import Path
 
 import edge_tts
@@ -42,11 +56,133 @@ BANNER_BOTTOM_MARGIN = 260    # margen desde abajo para no chocar con la UI de I
 FONT_SIZE = 58                 # tamano de fuente de los subtitulos (px, sobre lienzo de 1920 de alto)
 FPS = 24                       # fotogramas por segundo del zoom Ken Burns en modo sueno
 COLA_SEGUNDOS = 0.6           # margen extra tras terminar el audio de cada segmento
-VOZ_PITCH = "+25Hz"            # tono mas agudo, efecto "personaje de dibujos animados"
-VOZ_RATE = "+8%"               # ligeramente mas rapido, mas energico
+VOZ_PITCH = "+25Hz"            # tono mas agudo, efecto "personaje de dibujos animados" (solo Edge TTS)
+VOZ_RATE = "+8%"               # ligeramente mas rapido, mas energico (solo Edge TTS)
+
+# --- Google Gemini TTS (misma voz que el telediario / Villa TV) ---------
+GOOGLE_TTS_API_KEY = os.environ.get("GOOGLE_TTS_API_KEY", "")
+GOOGLE_TTS_VOZ = os.environ.get("GOOGLE_TTS_VOZ", "Achird")
+GOOGLE_TTS_MODELO = os.environ.get("GOOGLE_TTS_MODELO", "gemini-3.8-flash-tts")
+GOOGLE_TTS_ESTILO = os.environ.get(
+    "GOOGLE_TTS_ESTILO",
+    "con acento de España (castellano peninsular, nada de acento latinoamericano), "
+    "como un personaje masculino de dibujos animados para niños: chico joven, "
+    "simpático y entusiasta, voz clara y juvenil, entonación muy expresiva, ritmo vivo",
+)
+GOOGLE_TTS_URL = os.environ.get(
+    "GOOGLE_TTS_URL", "https://generativelanguage.googleapis.com/v1beta/interactions"
+)
+GOOGLE_TTS_PAUSA_SEGUNDOS = 6.5   # limite gratuito: ~10 peticiones/minuto
+GOOGLE_TTS_MAX_REINTENTOS = 3
+
+USAR_GOOGLE_TTS = bool(GOOGLE_TTS_API_KEY)
+
+_ultima_llamada_google = 0.0
 
 
-async def generar_audio_srt(texto, voz, out_mp3, out_srt, pitch=VOZ_PITCH, rate=VOZ_RATE):
+def _pedir_audio_google(texto):
+    """Llama a la API de Google Gemini TTS y devuelve el audio en bytes (wav)."""
+    global _ultima_llamada_google
+
+    cuerpo = {
+        "model": GOOGLE_TTS_MODELO,
+        "input": [
+            {
+                "type": "user_input",
+                "content": [
+                    {
+                        "type": "text",
+                        "text": texto,
+                        "annotations": [
+                            {"type": "speech_metadata", "style": GOOGLE_TTS_ESTILO}
+                        ],
+                    }
+                ],
+            }
+        ],
+        "response_format": {"type": "audio"},
+        "generation_config": {"speech_config": [{"voice": GOOGLE_TTS_VOZ}]},
+    }
+    data = json.dumps(cuerpo).encode("utf-8")
+
+    ultimo_error = None
+    for intento in range(GOOGLE_TTS_MAX_REINTENTOS):
+        espera = GOOGLE_TTS_PAUSA_SEGUNDOS - (time.time() - _ultima_llamada_google)
+        if espera > 0:
+            time.sleep(espera)
+
+        req = urllib.request.Request(
+            GOOGLE_TTS_URL,
+            data=data,
+            method="POST",
+            headers={
+                "Content-Type": "application/json",
+                "x-goog-api-key": GOOGLE_TTS_API_KEY,
+            },
+        )
+        _ultima_llamada_google = time.time()
+        try:
+            with urllib.request.urlopen(req, timeout=60) as resp:
+                respuesta = json.loads(resp.read().decode("utf-8"))
+            for paso in respuesta.get("steps", []):
+                for parte in paso.get("content", []):
+                    if parte.get("type") == "audio":
+                        return base64.b64decode(parte["data"])
+            raise RuntimeError("respuesta de Google TTS sin audio")
+        except urllib.error.HTTPError as e:
+            ultimo_error = e
+            if e.code == 429 and intento < GOOGLE_TTS_MAX_REINTENTOS - 1:
+                # limite de peticiones por minuto: esperar y reintentar
+                time.sleep(GOOGLE_TTS_PAUSA_SEGUNDOS)
+                continue
+            raise
+        except Exception as e:
+            ultimo_error = e
+            raise
+
+    raise RuntimeError(f"Google TTS: demasiados reintentos ({ultimo_error})")
+
+
+def _srt_simple(texto, duracion, out_srt):
+    """Crea un SRT de una sola linea que cubre toda la duracion del audio.
+
+    Google TTS no devuelve tiempos por palabra como Edge TTS, asi que no se
+    puede resaltar palabra a palabra; se muestra el texto completo durante
+    todo el segmento."""
+
+    def fmt(s):
+        s = max(s, 0)
+        h, resto = divmod(s, 3600)
+        m, s = divmod(resto, 60)
+        ms = int(round((s - int(s)) * 1000))
+        return f"{int(h):02d}:{int(m):02d}:{int(s):02d},{ms:03d}"
+
+    with open(out_srt, "w", encoding="utf-8") as f:
+        f.write(f"1\n{fmt(0)} --> {fmt(duracion)}\n{texto}\n")
+
+
+def generar_audio_srt_google(texto, out_mp3, out_srt):
+    """Genera audio con Google Gemini TTS (voz Achird) y un SRT simple."""
+    audio_bytes = _pedir_audio_google(texto)
+
+    tmp_wav = tempfile.NamedTemporaryFile(suffix=".wav", delete=False)
+    try:
+        tmp_wav.write(audio_bytes)
+        tmp_wav.close()
+        subprocess.run(
+            ["ffmpeg", "-y", "-i", tmp_wav.name, str(out_mp3)],
+            check=True, capture_output=True,
+        )
+    finally:
+        try:
+            os.unlink(tmp_wav.name)
+        except OSError:
+            pass
+
+    _srt_simple(texto, duracion_audio(out_mp3), out_srt)
+
+
+async def _generar_audio_srt_edge(texto, voz, out_mp3, out_srt, pitch=VOZ_PITCH, rate=VOZ_RATE):
     communicate = edge_tts.Communicate(texto, voz, rate=rate, pitch=pitch)
     submaker = edge_tts.SubMaker()
     with open(out_mp3, "wb") as f:
@@ -57,6 +193,24 @@ async def generar_audio_srt(texto, voz, out_mp3, out_srt, pitch=VOZ_PITCH, rate=
                 submaker.feed(chunk)
     with open(out_srt, "w", encoding="utf-8") as f:
         f.write(submaker.get_srt())
+
+
+def generar_audio_srt(texto, voz, out_mp3, out_srt, pitch=VOZ_PITCH, rate=VOZ_RATE):
+    """Genera audio + subtitulos para un segmento.
+
+    Intenta primero Google Gemini TTS (voz Achird) si hay GOOGLE_TTS_API_KEY
+    configurada. Si falla por cualquier motivo (sin conexion, cuota, error
+    de la API...) o no hay API key, usa Edge TTS como respaldo, exactamente
+    como funcionaba antes."""
+    if USAR_GOOGLE_TTS:
+        try:
+            generar_audio_srt_google(texto, out_mp3, out_srt)
+            print("  -> audio generado con Google TTS (voz Achird)")
+            return
+        except Exception as e:
+            print(f"  -> Google TTS fallo ({e}); usando Edge TTS de respaldo")
+
+    asyncio.run(_generar_audio_srt_edge(texto, voz, out_mp3, out_srt, pitch, rate))
 
 
 def duracion_audio(path):
@@ -200,16 +354,21 @@ def main():
     base_dir = Path(guion_path).parent  # las rutas "media" son relativas al guion
     con_subtitulos = guion.get("subtitulos", True)
 
+    if USAR_GOOGLE_TTS:
+        print("Voz: Google Gemini TTS (Achird) con respaldo en Edge TTS")
+    else:
+        print("Voz: Edge TTS (no hay GOOGLE_TTS_API_KEY configurada)")
+
     with tempfile.TemporaryDirectory() as tmp:
         tmp = Path(tmp)
         clips = []
         for i, seg in enumerate(guion["segmentos"]):
             mp3 = tmp / f"seg{i}.mp3"
             srt = tmp / f"seg{i}.srt"
-            asyncio.run(generar_audio_srt(
+            generar_audio_srt(
                 seg["texto"], seg.get("voz", "es-ES-AlvaroNeural"), mp3, srt,
                 pitch=seg.get("pitch", VOZ_PITCH), rate=seg.get("rate", VOZ_RATE)
-            ))
+            )
             dur = duracion_audio(mp3) + COLA_SEGUNDOS
             clip = tmp / f"clip{i}.mp4"
             media_path = base_dir / seg["media"]
