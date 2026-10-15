@@ -1,0 +1,10 @@
+{
+  "segmentos": [
+    {
+      "voz": "es-ES-AlvaroNeural",
+      "media": "assets/1000206785.mp4",
+      "texto": "Hola Buitrago!\nHoy jugamos todos, participa en la marcha solidaria contra el cáncer de mama, inscríbete aquí, en la plaza Picasso a partir de las 11. Participa.\nNos lo tomamos a pecho."
+    }
+  ],
+  "subtitulos": false
+}
