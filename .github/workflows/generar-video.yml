@@ -28,6 +28,8 @@ jobs:
         run: pip install edge-tts
 
       - name: Generar video
+        env:
+          GOOGLE_TTS_API_KEY: ${{ secrets.GOOGLE_TTS_API_KEY }}
         run: |
           python scripts/generate_video.py \
             "${{ github.event.client_payload.guion_path }}" \
