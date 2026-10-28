@@ -1,0 +1,10 @@
+{
+  "segmentos": [
+    {
+      "texto": "Hola amigos del Villa de Buitrago.\nUn pueblo pequeño puede lograr algo muy grande.",
+      "voz": "es-ES-AlvaroNeural",
+      "media": "assets/1000209810.mp4"
+    }
+  ],
+  "subtitulos": false
+}
